@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/cars")
+@RequestMapping("/api/v1/sys/cars")
 public class CCar {
 
     private final RCar carRepo;

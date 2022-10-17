@@ -10,7 +10,7 @@ import ru.RSOI.Model.MCar;
 @Repository
 public interface RCar extends JpaRepository<MCar, Integer> {
 
-    @Query("SELECT c FROM Cars c where c.availability = true")
+    @Query("SELECT c FROM cars c where c.availability = true")
     public Page<MCar> findAvailable(Pageable pageable);
 
 }
