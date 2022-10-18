@@ -119,9 +119,9 @@ public class CRental {
         rentRepo.save(foundRent);
     }
 
-    @DeleteMapping("/{rentalUid}")
+    @DeleteMapping("/{rentalUid}/cancel")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removePerson(@PathVariable UUID rentalUid, @RequestHeader(value = "X-User-Name") String username)
+    public void cancelRent(@PathVariable UUID rentalUid, @RequestHeader(value = "X-User-Name") String username)
     {
         MRental foundRent = findInProgressRentWithChecks(rentalUid, username);
         foundRent.v7_status = "CANCELED";
