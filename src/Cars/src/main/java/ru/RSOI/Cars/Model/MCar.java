@@ -1,4 +1,4 @@
-package ru.RSOI.Model;
+package ru.RSOI.Cars.Model;
 
 import javax.persistence.*;
 import java.util.UUID;
