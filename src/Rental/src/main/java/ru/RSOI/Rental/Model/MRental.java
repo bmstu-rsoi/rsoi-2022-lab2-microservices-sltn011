@@ -1,4 +1,4 @@
-package ru.RSOI.Model;
+package ru.RSOI.Rental.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

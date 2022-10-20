@@ -28,8 +28,6 @@ class PaymentApplicationTests {
 	@Autowired
 	private CPayment paymentController;
 
-	UUID existing_uuid;
-
 	@Test
 	@Order(1)
 	void testGetNonexistingPayment()
@@ -53,10 +51,6 @@ class PaymentApplicationTests {
 	void testGetAll()
 	{
 		List<MPayment> payments = paymentController.getAll();
-		for (MPayment payment : payments)
-		{
-			System.out.println(payment.v1_payment_uid);
-		}
 		assertNotEquals(0, payments.size());
 	}
 

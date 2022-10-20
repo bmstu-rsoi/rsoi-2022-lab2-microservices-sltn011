@@ -1,12 +1,11 @@
-package ru.RSOI.Controller;
+package ru.RSOI.Rental.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.RSOI.Error.EBadRequestError;
-import ru.RSOI.Error.EError400Description;
-import ru.RSOI.Error.ENotFoundError;
-import ru.RSOI.Model.MRental;
-import ru.RSOI.Repo.RRental;
+import ru.RSOI.Rental.Error.EBadRequestError;
+import ru.RSOI.Rental.Error.ENotFoundError;
+import ru.RSOI.Rental.Model.MRental;
+import ru.RSOI.Rental.Repo.RRental;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -38,10 +37,12 @@ public class CRental {
     public MRental tryRenting(@RequestHeader(value = "X-User-Name") String username, @RequestBody Map<String, String> values)
     {
         UUID carUid;
+        UUID paymentUid;
         Timestamp dateFrom;
         Timestamp dateTo;
 
-        if (!values.containsKey("carUid") || !values.containsKey("dateFrom") || !values.containsKey("dateTo"))
+        if (!values.containsKey("carUid") || !values.containsKey("paymentUid")
+                || !values.containsKey("dateFrom") || !values.containsKey("dateTo"))
         {
             EBadRequestError error =
                     new EBadRequestError("Invalid parameters passed to tryRenting!", new ArrayList<>());
@@ -56,6 +57,16 @@ public class CRental {
         {
             EBadRequestError error =
                     new EBadRequestError("Invalid car uuid passed to tryRenting!", new ArrayList<>());
+            throw error;
+        }
+        try
+        {
+            paymentUid = UUID.fromString(values.get("paymentUid"));
+        }
+        catch (IllegalArgumentException e)
+        {
+            EBadRequestError error =
+                    new EBadRequestError("Invalid payment uuid passed to tryRenting!", new ArrayList<>());
             throw error;
         }
         try
@@ -99,7 +110,7 @@ public class CRental {
 
         MRental newRent = new MRental();
         newRent.v2_username = username;
-        // TODO: add payment! newRent.v3_payment_uid
+        newRent.v3_payment_uid = paymentUid;
         newRent.v4_car_uid = carUid;
         newRent.v5_date_from = dateFrom;
         newRent.v6_date_to = dateTo;

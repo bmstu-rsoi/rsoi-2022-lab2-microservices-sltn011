@@ -11,7 +11,7 @@ import java.util.UUID;
 @Repository
 public interface RPayment extends JpaRepository<MPayment, Integer> {
 
-    @Query("SELECT p FROM MPayment p where p.v1_payment_uid = payment_uid")
+    @Query("SELECT p FROM MPayment p where p.v1_payment_uid = ?1")
     public List<MPayment> findPayment(UUID payment_uid);
 
 }
