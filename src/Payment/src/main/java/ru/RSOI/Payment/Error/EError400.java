@@ -1,4 +1,4 @@
-package ru.RSOI.Error;
+package ru.RSOI.Payment.Error;
 
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package ru.RSOI.Model;
+package ru.RSOI.Payment.Model;
 
 import javax.persistence.*;
 import java.util.UUID;

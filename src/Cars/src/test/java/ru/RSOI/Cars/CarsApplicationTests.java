@@ -27,7 +27,6 @@ class CarsApplicationTests {
 	@Autowired
 	private CCar carsController;
 
-
 	@Test
 	void testPost()
 	{

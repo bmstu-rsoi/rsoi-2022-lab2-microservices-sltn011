@@ -1,11 +1,11 @@
-package ru.RSOI.Controller;
+package ru.RSOI.Payment.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.RSOI.Error.EBadRequestError;
-import ru.RSOI.Error.ENotFoundError;
-import ru.RSOI.Model.MPayment;
-import ru.RSOI.Repo.RPayment;
+import ru.RSOI.Payment.Error.EBadRequestError;
+import ru.RSOI.Payment.Error.ENotFoundError;
+import ru.RSOI.Payment.Model.MPayment;
+import ru.RSOI.Payment.Repo.RPayment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,14 @@ public class CPayment {
         this.paymentRepo = paymentRepo;
     }
 
+    @GetMapping("")
+    public List<MPayment> getAll()
+    {
+        return paymentRepo.findAll();
+    }
+
     @GetMapping("/{payment_uid}")
-    public MPayment getAllPayments(@PathVariable UUID payment_uid)
+    public MPayment getPayments(@PathVariable UUID payment_uid)
     {
         return findPayment(payment_uid);
     }
