@@ -1,4 +1,4 @@
-package ru.RSOI.Error;
+package ru.RSOI.Gateway.Error;
 
 public class EError404 {
     public String message = "";

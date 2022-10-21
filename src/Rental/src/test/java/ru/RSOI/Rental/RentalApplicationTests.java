@@ -67,7 +67,7 @@ class RentalApplicationTests {
 	void testFinishExisting()
 	{
 		MRental rent = rentController.getUserRents("TestUser").get(0);
-		rentController.finish(rent.v1_rental_uid, "TestUser");
+		rentController.finish(rent.v1_rental_uid.toString(), "TestUser");
 		rent = rentController.getUserRents("TestUser").get(0);
 		assertEquals("FINISHED", rent.v7_status);
 	}

@@ -32,8 +32,8 @@ class PaymentApplicationTests {
 	@Order(1)
 	void testGetNonexistingPayment()
 	{
-		UUID nonexisting = UUID.fromString("11111111-2222-3333-4444-000000000000");
-		assertThrows(ENotFoundError.class, () -> paymentController.getPayments(nonexisting));
+		assertThrows(ENotFoundError.class,
+				() -> paymentController.getPayments("11111111-2222-3333-4444-000000000000"));
 	}
 
 	@Test

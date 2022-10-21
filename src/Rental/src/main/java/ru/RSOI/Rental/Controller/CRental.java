@@ -28,9 +28,10 @@ public class CRental {
     }
 
     @GetMapping("/{rentalUid}")
-    public MRental getRentByUUID(@PathVariable UUID rentalUid, @RequestHeader(value = "X-User-Name") String username)
+    public MRental getRentByUUID(@PathVariable String rentalUid, @RequestHeader(value = "X-User-Name") String username)
     {
-        return findInProgressRentWithChecks(rentalUid, username);
+        UUID uid = UUID.fromString(rentalUid);
+        return findInProgressRentWithChecks(uid, username);
     }
 
     @PostMapping("")
@@ -122,9 +123,10 @@ public class CRental {
 
     @PostMapping("/{rentalUid}/finish")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void finish(@PathVariable UUID rentalUid, @RequestHeader(value = "X-User-Name") String username)
+    public void finish(@PathVariable String rentalUid, @RequestHeader(value = "X-User-Name") String username)
     {
-        MRental foundRent = findInProgressRentWithChecks(rentalUid, username);
+        UUID uid = UUID.fromString(rentalUid);
+        MRental foundRent = findInProgressRentWithChecks(uid, username);
         foundRent.v7_status = "FINISHED";
         rentRepo.deleteById(foundRent.getId());
         rentRepo.save(foundRent);
@@ -132,9 +134,10 @@ public class CRental {
 
     @DeleteMapping("/{rentalUid}/cancel")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancelRent(@PathVariable UUID rentalUid, @RequestHeader(value = "X-User-Name") String username)
+    public void cancelRent(@PathVariable String rentalUid, @RequestHeader(value = "X-User-Name") String username)
     {
-        MRental foundRent = findInProgressRentWithChecks(rentalUid, username);
+        UUID uid = UUID.fromString(rentalUid);
+        MRental foundRent = findInProgressRentWithChecks(uid, username);
         foundRent.v7_status = "CANCELED";
         rentRepo.deleteById(foundRent.getId());
         rentRepo.save(foundRent);

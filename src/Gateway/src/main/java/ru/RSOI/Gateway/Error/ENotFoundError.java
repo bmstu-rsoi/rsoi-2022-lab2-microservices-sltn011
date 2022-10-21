@@ -1,4 +1,4 @@
-package ru.RSOI.Error;
+package ru.RSOI.Gateway.Error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

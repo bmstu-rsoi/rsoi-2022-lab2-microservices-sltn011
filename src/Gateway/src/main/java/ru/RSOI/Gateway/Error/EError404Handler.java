@@ -1,4 +1,4 @@
-package ru.RSOI.Error;
+package ru.RSOI.Gateway.Error;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class EError400Handler {
+public class EError404Handler {
 
-    @ExceptionHandler(EBadRequestError.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public EError400 HandleBadRequestError(EBadRequestError error) {
-        return new EError400(error);
+    @ExceptionHandler(ENotFoundError.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public EError404 HandleNotFoundError(ENotFoundError error) {
+        return new EError404(error.message);
     }
 
 }

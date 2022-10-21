@@ -30,9 +30,10 @@ public class CPayment {
     }
 
     @GetMapping("/{payment_uid}")
-    public MPayment getPayments(@PathVariable UUID payment_uid)
+    public MPayment getPayments(@PathVariable String payment_uid)
     {
-        return findPayment(payment_uid);
+        UUID uid = UUID.fromString(payment_uid);
+        return findPayment(uid);
     }
 
     @PostMapping("")
@@ -64,9 +65,10 @@ public class CPayment {
 
     @DeleteMapping("/{payment_uid}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void cancelPayment(@PathVariable UUID payment_uid)
+    public void cancelPayment(@PathVariable String payment_uid)
     {
-        MPayment payment = findPayment(payment_uid);
+        UUID uid = UUID.fromString(payment_uid);
+        MPayment payment = findPayment(uid);
         paymentRepo.deleteById(payment.getId());
         payment.v2_status = "CANCELED";
         paymentRepo.save(payment);
