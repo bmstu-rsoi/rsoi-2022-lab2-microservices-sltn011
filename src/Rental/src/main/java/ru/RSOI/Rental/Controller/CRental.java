@@ -153,7 +153,7 @@ public class CRental {
         }
 
         MRental foundRent = rent.get(0);
-        if (foundRent.v2_username != username)
+        if (!foundRent.v2_username.equals(username))
         {
             ENotFoundError error = new ENotFoundError("Rent not found!");
             throw error;

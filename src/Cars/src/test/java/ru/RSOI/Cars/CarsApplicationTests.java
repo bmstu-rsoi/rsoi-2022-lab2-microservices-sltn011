@@ -3,15 +3,14 @@ package ru.RSOI.Cars;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import ru.RSOI.Cars.Controller.CCar;
+import ru.RSOI.Cars.Error.EBadRequestError;
 import ru.RSOI.Cars.Error.ENotFoundError;
 import ru.RSOI.Cars.Model.MCar;
-import ru.RSOI.Cars.Repo.RCar;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -38,7 +37,7 @@ class CarsApplicationTests {
 		values.put("price", "3500");
 		values.put("type", "SEDAN");
 		values.put("availability", "true");
-		ResponseEntity<Object> response = carsController.addPerson(values);
+		ResponseEntity<Object> response = carsController.addCar(values);
 		assertEquals(HttpStatus.CREATED, response.getStatusCode());
 	}
 
@@ -60,7 +59,8 @@ class CarsApplicationTests {
 	@Test
 	void testGetNonExisting()
 	{
-		assertThrows(ENotFoundError.class, () -> carsController.updateAvailableCar(-1, new HashMap<>()));
+		assertThrows(EBadRequestError.class, () -> carsController.updateAvailableCar(
+				"284f4ce6-04c2-4b2c-872f-971df9eb5599", new HashMap<>()));
 	}
 
 }

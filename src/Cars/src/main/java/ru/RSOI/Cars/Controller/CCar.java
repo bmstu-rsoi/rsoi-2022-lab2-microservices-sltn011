@@ -1,6 +1,5 @@
 package ru.RSOI.Cars.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,7 @@ import ru.RSOI.Cars.Repo.RCar;
 import ru.RSOI.Cars.Error.*;
 
 import java.net.URI;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/sys/cars")
@@ -31,8 +30,15 @@ public class CCar {
         return getCarsPage(page, size, showAll);
     }
 
+    @GetMapping("/{carUid}")
+    public MCar getCar(@PathVariable String carUid)
+    {
+        return findCar(UUID.fromString(carUid))
+                .orElseThrow(() -> new EBadRequestError("Car not found!", new ArrayList<>()));
+    }
+
     @PostMapping("")
-    public ResponseEntity<Object> addPerson(@RequestBody Map<String, String> values)
+    public ResponseEntity<Object> addCar(@RequestBody Map<String, String> values)
     {
         MCar car = new MCar();
         fillValues(car, values);
@@ -43,11 +49,20 @@ public class CCar {
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{id}")
-    public MCar updateAvailableCar(@PathVariable int id, @RequestBody Map<String, String> values)
+    @PatchMapping("/{carUid}")
+    public MCar updateAvailableCar(@PathVariable String carUid, @RequestBody Map<String, String> values)
     {
-        MCar car = findCar(id);
-        updateAvailability(car, values);
+        UUID carUidVal = UUID.fromString(carUid);
+        MCar car = findAvailableCar(carUidVal);
+        updateAvailability(car, Boolean.parseBoolean(values.get("availability")));
+        return carRepo.save(car);
+    }
+
+    @PatchMapping("/request/{carUid}")
+    public MCar requestAvailableCar(@PathVariable String carUid)
+    {
+        MCar car = findAvailableCar(UUID.fromString(carUid));
+        updateAvailability(car, false);
         return carRepo.save(car);
     }
 
@@ -63,17 +78,30 @@ public class CCar {
         }
     }
 
-    private MCar findCar(int id)
+    private Optional<MCar> findCar(UUID carUid)
     {
-        return carRepo.findById(id).orElseThrow(() -> new ENotFoundError("Car not found!"));
+        List<MCar> cars = carRepo.findCarByUid(carUid);
+        if (cars.size() == 0)
+        {
+            return Optional.empty();
+        }
+
+        return Optional.of(cars.get(0));
     }
 
-    private MCar updateAvailability(MCar car, Map<String, String> values)
+    private MCar findAvailableCar(UUID carUid)
     {
-        if (values.containsKey("availability"))
+        Optional<MCar> car = findCar(carUid);
+        if (car.isPresent() && car.get().v8_availability == true)
         {
-            car.v8_availability = Boolean.parseBoolean(values.get("availability"));
+            return car.get();
         }
+        throw new EBadRequestError("Car not available!", new ArrayList<>());
+    }
+
+    private MCar updateAvailability(MCar car, boolean isSetAvailable)
+    {
+        car.v8_availability = isSetAvailable;
         return car;
     }
 
