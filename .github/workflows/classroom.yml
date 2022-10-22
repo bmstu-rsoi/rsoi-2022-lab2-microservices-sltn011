@@ -36,12 +36,12 @@ jobs:
       - uses: docker/setup-buildx-action@v2
       - name: Build images
         timeout-minutes: 10
-        run: docker-compose build
+        run: docker compose build
 
       - name: Run containers
         timeout-minutes: 5
         run: |
-          docker-compose up -d
+          docker compose up --no-TTY -d
           ./scripts/wait-script.sh
 
       - name: Run API Tests
