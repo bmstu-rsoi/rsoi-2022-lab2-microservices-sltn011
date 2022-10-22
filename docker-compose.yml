@@ -16,28 +16,24 @@ services:
       
   gateway:
     image: gateway
-    container_name: gateway
     build: ./src/Gateway/
     ports:
       - "8080:8080"
       
   cars:
     image: cars
-    container_name: cars
     build: ./src/Cars/
     ports:
       - "8070:8070"
       
   rental:
     image: rental
-    container_name: rental
     build: ./src/Rental/
     ports:
       - "8060:8060"
       
   payment:
     image: payment
-    container_name: payment
     build: ./src/Payment/
     ports:
       - "8050:8050"
