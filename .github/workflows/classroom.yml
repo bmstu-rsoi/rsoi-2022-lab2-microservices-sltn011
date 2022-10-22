@@ -67,11 +67,6 @@ jobs:
           column_offset: 'F'
           mark: "'+"
 
-      - name: Docker logs
-        if: always()
-        continue-on-error: true
-        run:
-          docker compose logs
       - name: Stop containers
         if: always()
         continue-on-error: true
