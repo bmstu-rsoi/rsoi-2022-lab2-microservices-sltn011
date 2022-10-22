@@ -41,7 +41,7 @@ jobs:
       - name: Run containers
         timeout-minutes: 5
         run: |
-          docker compose up -d
+          docker compose up -P -d
           ./scripts/wait-script.sh
 
       - name: Run API Tests
