@@ -44,7 +44,7 @@ class CarsApplicationTests {
 	@Test
 	void testGetAvailableOnly()
 	{
-		Iterator<MCar> it = carsController.getCars(0, 5, false).iterator();
+		Iterator<MCar> it = carsController.getCars(1, 5, false).iterator();
 		boolean onlyAvailable = true;
 		while (it.hasNext())
 		{
