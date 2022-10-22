@@ -48,8 +48,8 @@ class RentalApplicationTests {
 		Map<String, String> values = new HashMap<>();
 		values.put("carUid", carUid.toString());
 		values.put("paymentUid", paymentUid.toString());
-		values.put("dateFrom", Timestamp.from(Instant.now()).toString());
-		values.put("dateTo", Timestamp.from(Instant.now()).toString());
+		values.put("dateFrom", "2021-10-08");
+		values.put("dateTo", "2021-10-09");
 		MRental rent = rentController.tryRenting("TestUser", values);
 		assertEquals(carUid, rent.v4_car_uid);
 	}

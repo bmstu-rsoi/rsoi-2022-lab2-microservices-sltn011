@@ -31,7 +31,7 @@ public class CRental {
     public MRental getRentByUUID(@PathVariable String rentalUid, @RequestHeader(value = "X-User-Name") String username)
     {
         UUID uid = UUID.fromString(rentalUid);
-        return findInProgressRentWithChecks(uid, username);
+        return findRentWithChecks(uid, username);
     }
 
     @PostMapping("")
@@ -72,7 +72,7 @@ public class CRental {
         }
         try
         {
-            dateFrom = Timestamp.valueOf(values.get("dateFrom"));
+            dateFrom = Timestamp.valueOf(values.get("dateFrom") + " 12:00:00");
         }
         catch (IllegalArgumentException e)
         {
@@ -82,7 +82,7 @@ public class CRental {
         }
         try
         {
-            dateTo = Timestamp.valueOf(values.get("dateFrom"));
+            dateTo = Timestamp.valueOf(values.get("dateTo") + " 12:00:00");
         }
         catch (IllegalArgumentException e)
         {
@@ -91,6 +91,7 @@ public class CRental {
             throw error;
         }
 
+        /*
         List<MRental> carRents = rentRepo.findCarRents(carUid, "IN_PROGRESS");
         boolean isFree = true;
         for (MRental rent : carRents)
@@ -108,6 +109,7 @@ public class CRental {
             EBadRequestError error = new EBadRequestError("Rent date overlaps with another", new ArrayList<>());
             throw error;
         }
+         */
 
         MRental newRent = new MRental();
         newRent.v2_username = username;
@@ -143,9 +145,28 @@ public class CRental {
         rentRepo.save(foundRent);
     }
 
-    MRental findInProgressRentWithChecks(UUID rentalUid, String username)
+    MRental findRentWithChecks(UUID rentalUid, String username)
     {
         List<MRental> rent = rentRepo.findRentByUUID(rentalUid);
+        if (rent.size() == 0)
+        {
+            ENotFoundError error = new ENotFoundError("Rent not found by uuid!");
+            throw error;
+        }
+
+        MRental foundRent = rent.get(0);
+        if (!foundRent.v2_username.equals(username))
+        {
+            ENotFoundError error = new ENotFoundError("Rent not found!");
+            throw error;
+        }
+
+        return foundRent;
+    }
+
+    MRental findInProgressRentWithChecks(UUID rentalUid, String username)
+    {
+        List<MRental> rent = rentRepo.findInProgressRentByUUID(rentalUid);
         if (rent.size() == 0)
         {
             ENotFoundError error = new ENotFoundError("Rent not found by uuid!");

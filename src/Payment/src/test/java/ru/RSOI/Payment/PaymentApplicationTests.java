@@ -40,9 +40,7 @@ class PaymentApplicationTests {
 	@Order(2)
 	void testCreatePayment()
 	{
-		Map<String, String> values = new HashMap<String, String>();
-		values.put("price", "100");
-		MPayment payment = paymentController.createPayment(values);
+		MPayment payment = paymentController.createPayment(100);
 		assertEquals(100, payment.v3_price);
 	}
 

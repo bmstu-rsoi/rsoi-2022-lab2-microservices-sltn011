@@ -20,4 +20,7 @@ public interface RRental extends JpaRepository<MRental, Integer> {
     @Query("SELECT r FROM MRental r where r.v1_rental_uid = ?1")
     public List<MRental> findRentByUUID(UUID rental_uid);
 
+    @Query("SELECT r FROM MRental r where (r.v1_rental_uid = ?1 AND r.v7_status = 'IN_PROGRESS')")
+    public List<MRental> findInProgressRentByUUID(UUID rental_uid);
+
 }

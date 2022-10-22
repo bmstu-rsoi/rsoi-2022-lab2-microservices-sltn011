@@ -36,26 +36,9 @@ public class CPayment {
         return findPayment(uid);
     }
 
-    @PostMapping("")
-    public MPayment createPayment(@RequestBody Map<String, String> values)
+    @PostMapping("/{price}")
+    public MPayment createPayment(@PathVariable int price)
     {
-        if (!values.containsKey("price"))
-        {
-            EBadRequestError error = new EBadRequestError("No price specified in payment!", new ArrayList<>());
-            throw error;
-        }
-
-        int price;
-        try
-        {
-            price = Integer.parseInt(values.get("price"));
-        }
-        catch (NumberFormatException e)
-        {
-            EBadRequestError error = new EBadRequestError("Invalid price in payment!", new ArrayList<>());
-            throw error;
-        }
-
         MPayment payment = new MPayment();
         payment.v2_status = "PAID";
         payment.v3_price = price;

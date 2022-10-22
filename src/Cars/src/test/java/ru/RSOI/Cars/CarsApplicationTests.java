@@ -60,7 +60,7 @@ class CarsApplicationTests {
 	void testGetNonExisting()
 	{
 		assertThrows(EBadRequestError.class, () -> carsController.updateAvailableCar(
-				"284f4ce6-04c2-4b2c-872f-971df9eb5599", new HashMap<>()));
+				"284f4ce6-04c2-4b2c-872f-971df9eb5599", true));
 	}
 
 }

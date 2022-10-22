@@ -49,20 +49,22 @@ public class CCar {
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/{carUid}")
-    public MCar updateAvailableCar(@PathVariable String carUid, @RequestBody Map<String, String> values)
+    @PutMapping("/{carUid}/{isSetAvailable}")
+    public MCar updateAvailableCar(@PathVariable String carUid, @PathVariable boolean isSetAvailable)
     {
         UUID carUidVal = UUID.fromString(carUid);
-        MCar car = findAvailableCar(carUidVal);
-        updateAvailability(car, Boolean.parseBoolean(values.get("availability")));
+        MCar car = findAnyCar(carUidVal);
+        updateAvailability(car, isSetAvailable);
+        carRepo.deleteById(car.getId());
         return carRepo.save(car);
     }
 
-    @PatchMapping("/request/{carUid}")
+    @PutMapping("/request/{carUid}")
     public MCar requestAvailableCar(@PathVariable String carUid)
     {
         MCar car = findAvailableCar(UUID.fromString(carUid));
         updateAvailability(car, false);
+        carRepo.deleteById(car.getId());
         return carRepo.save(car);
     }
 
@@ -87,6 +89,16 @@ public class CCar {
         }
 
         return Optional.of(cars.get(0));
+    }
+
+    private MCar findAnyCar(UUID carUid)
+    {
+        Optional<MCar> car = findCar(carUid);
+        if (car.isPresent())
+        {
+            return car.get();
+        }
+        throw new EBadRequestError("Car not found!", new ArrayList<>());
     }
 
     private MCar findAvailableCar(UUID carUid)

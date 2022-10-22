@@ -11,4 +11,12 @@ public class MRentSuccess {
     public String dateTo;
     public MRentPaymentInfo payment;
 
+    public MRentSuccess(UUID rentalUid, String status, UUID carUid, String dateFrom, String dateTo, MRentPaymentInfo payment) {
+        this.rentalUid = rentalUid;
+        this.status = status;
+        this.carUid = carUid;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+        this.payment = payment;
+    }
 }
