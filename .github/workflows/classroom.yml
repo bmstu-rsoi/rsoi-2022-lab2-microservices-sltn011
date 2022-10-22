@@ -41,7 +41,7 @@ jobs:
       - name: Run containers
         timeout-minutes: 5
         run: |
-          docker compose up --no-TTY -d
+          docker compose up -d
           ./scripts/wait-script.sh
 
       - name: Run API Tests
@@ -70,4 +70,6 @@ jobs:
       - name: Stop containers
         if: always()
         continue-on-error: true
-        run: docker compose down -v
+        run:
+          docker compose logs
+          docker compose down -v
