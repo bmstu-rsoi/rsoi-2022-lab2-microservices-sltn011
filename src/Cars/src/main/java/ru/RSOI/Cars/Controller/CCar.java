@@ -23,9 +23,9 @@ public class CCar {
         this.carRepo = carRepo;
     }
 
-    @GetMapping("/{page}/{size}/{showAll}")
+    @GetMapping("")
     public Iterable<MCar> getCars(
-            @RequestParam int page, @RequestParam int size, @RequestParam boolean showAll)
+            @RequestParam int page, @RequestParam int size, @RequestParam(defaultValue = "false") boolean showAll)
     {
         return getCarsPage(page - 1, size, showAll);
     }

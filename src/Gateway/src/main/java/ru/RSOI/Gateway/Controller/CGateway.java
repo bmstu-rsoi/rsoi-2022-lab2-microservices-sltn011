@@ -29,11 +29,10 @@ public class CGateway {
     public MCarsPage getAvailableCars(@RequestParam int page, @RequestParam int size,
                                       @RequestParam(defaultValue = "false") boolean showAll)
     {
-        String url = UriComponentsBuilder.fromHttpUrl(
-                CarsService + "/" +
-                        Integer.toString(page) + "/" +
-                        Integer.toString(size) + "/" +
-                        Boolean.toString(showAll))
+        String url = UriComponentsBuilder.fromHttpUrl(CarsService)
+                .queryParam("page", page)
+                .queryParam("size", size)
+                .queryParam("showAll", showAll)
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
