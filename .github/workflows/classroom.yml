@@ -48,9 +48,6 @@ jobs:
         uses: jakejarvis/wait-action@master
         with:
           time: '30s'
-          
-      - name: Attach
-        run: docker-compose logs -f -t
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
