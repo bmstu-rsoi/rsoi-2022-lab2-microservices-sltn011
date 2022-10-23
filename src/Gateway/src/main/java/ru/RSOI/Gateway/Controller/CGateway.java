@@ -21,9 +21,9 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/api/v1")
 public class CGateway {
 
-    public static final String CarsService    = "http://localhost:8070/api/v1/sys/cars";
-    public static final String RentService    = "http://localhost:8060/api/v1/sys/rental";
-    public static final String PaymentService = "http://localhost:8050/api/v1/sys/payment";
+    public static final String CarsService    = "http://cars:8070/api/v1/sys/cars";
+    public static final String RentService    = "http://rental:8060/api/v1/sys/rental";
+    public static final String PaymentService = "http://payment:8050/api/v1/sys/payment";
 
     @GetMapping("/cars")
     public MCarsPage getAvailableCars(@RequestParam int page, @RequestParam int size,
@@ -582,7 +582,7 @@ public class CGateway {
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
-        // headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.set("X-User-Name", username);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -627,7 +627,7 @@ public class CGateway {
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
-        // headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.set("X-User-Name", username);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 

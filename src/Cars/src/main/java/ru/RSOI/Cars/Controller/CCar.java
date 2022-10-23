@@ -27,7 +27,7 @@ public class CCar {
     public Iterable<MCar> getCars(
             @RequestParam int page, @RequestParam int size, @RequestParam(defaultValue = "false") boolean showAll)
     {
-        return getCarsPage(page, size, showAll);
+        return getCarsPage(page - 1, size, showAll);
     }
 
     @GetMapping("/{carUid}")

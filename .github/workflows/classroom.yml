@@ -43,8 +43,11 @@ jobs:
         run: |
           docker compose up -d
           ./scripts/wait-script.sh
-        env:
-          - WAIT_PORTS=8080,8070,8060,8050
+          
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '30s'
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
@@ -52,7 +55,7 @@ jobs:
           # TODO insert your variant
           collection: v3/postman/collection.json
           environment: v3/postman/environment.json
-          delayRequest: 100
+          delayRequest: 150
           reporters: '[ "cli" ]'
 
       - uses: education/autograding@v1
@@ -72,4 +75,5 @@ jobs:
       - name: Stop containers
         if: always()
         continue-on-error: true
-        run: docker compose down -v
+        run:
+          docker compose down -v
