@@ -582,7 +582,7 @@ public class CGateway {
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
-        // headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.set("X-User-Name", username);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
@@ -627,7 +627,7 @@ public class CGateway {
                 .toUriString();
 
         HttpHeaders headers = new HttpHeaders();
-        // headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
         headers.set("X-User-Name", username);
         HttpEntity<?> entity = new HttpEntity<>(headers);
 
