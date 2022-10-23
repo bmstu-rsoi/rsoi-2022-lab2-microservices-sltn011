@@ -50,7 +50,6 @@ jobs:
           time: '30s'
           
       - name: Attach
-        uses: docker/setup-buildx-action@v2
         run: docker-compose logs -f -t
 
       - name: Run API Tests
