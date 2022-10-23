@@ -40,9 +40,7 @@ jobs:
 
       - name: Run containers
         timeout-minutes: 5
-        run: |
-          docker compose up -d
-          ./scripts/wait-script.sh
+        run: docker compose up
           
       - name: Sleep for 30 seconds
         uses: jakejarvis/wait-action@master
