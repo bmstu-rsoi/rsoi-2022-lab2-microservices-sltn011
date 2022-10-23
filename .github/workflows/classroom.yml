@@ -44,10 +44,10 @@ jobs:
           docker compose up -d
           ./scripts/wait-script.sh
           
-      - name: Sleep for 60 seconds
+      - name: Sleep for 30 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '60s'
+          time: '30s'
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
@@ -55,7 +55,7 @@ jobs:
           # TODO insert your variant
           collection: v3/postman/collection.json
           environment: v3/postman/environment.json
-          delayRequest: 100
+          delayRequest: 150
           reporters: '[ "cli" ]'
 
       - uses: education/autograding@v1
