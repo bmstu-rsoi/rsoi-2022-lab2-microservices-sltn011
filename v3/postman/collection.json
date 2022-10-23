@@ -16,6 +16,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Получить список всех доступных для бронирования автомобилей\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
@@ -131,6 +132,7 @@
 									"const moment = require(\"moment\")",
 									"",
 									"pm.test(\"Забронировать автомобиль\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
@@ -255,6 +257,7 @@
 									"const moment = require(\"moment\")",
 									"",
 									"pm.test(\"Получение информации по конкретной аренде пользователя\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
@@ -374,6 +377,7 @@
 									"const moment = require(\"moment\")",
 									"",
 									"pm.test(\"Получение информации по конкретной аренде пользователя\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
@@ -476,6 +480,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Аренда отменена\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(204)",
 									"})"
@@ -568,6 +573,7 @@
 									"const moment = require(\"moment\")",
 									"",
 									"pm.test(\"Получение информации по конкретной аренде пользователя\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
@@ -687,6 +693,7 @@
 									"const moment = require(\"moment\")",
 									"",
 									"pm.test(\"Забронировать автомобиль\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
@@ -809,6 +816,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Аренда отменена\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(204)",
 									"})"
@@ -903,6 +911,7 @@
 									"const moment = require(\"moment\")",
 									"",
 									"pm.test(\"Получение информации по конкретной аренде пользователя\", () => {",
+									"    console.log(pm.request.json())",
 									"    console.log(pm.response.json())",
 									"    pm.response.to.have.status(200)",
 									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contains(\"application/json\");",
